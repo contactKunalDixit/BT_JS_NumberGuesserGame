@@ -21,7 +21,7 @@ Intro: Concepts covered:
 2.  elseif(No. matches ) Winning condition
 3.  else(wrong No.)
 4.  Nested if condition within step 3(Guessleft -=1, if count is 0, else state the no. of chances left)
-5.  After the game run, the submit button value changes to 'Play again' and If its ckicked, the page RELOADS.
+5.  After the game run, the submit button value changes to 'Play again' and If its clicked, the page RELOADS.
 
 **_ Methods used _**
 
