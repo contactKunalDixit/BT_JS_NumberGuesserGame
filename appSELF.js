@@ -26,12 +26,16 @@ let uiGame = document.querySelector("#game"),
 
 
 
+
 // Assign UI min and Max Elements
 uiMinNo.textContent = minNo;
 uiMaxNo.textContent = maxNo;
 
 // Liten for event guess
 uiGuessBtn.addEventListener("click", playOne);
+
+
+
 
 function getRandomWinningNumber() {
 
@@ -49,7 +53,7 @@ function playOne(e) {
     /* PraseInt parses the userInput into number from its original "String" state*/
     console.log(typeof (userGuess))
 
-    // Validate
+    // Validate for a valid response
     if (isNaN(userGuess) || userGuess < minNo || userGuess > maxNo) {
         funcMessage(`You need to choose a number between ${minNo} and ${maxNo}`, "red")
     }
@@ -66,6 +70,7 @@ function playOne(e) {
         funcMessage(`Yay!!Congrats..You got it ..${winningNum} is correct!`, "green");
 
 
+
     } else {
 
         // wrong no;
@@ -79,6 +84,7 @@ function playOne(e) {
             uiGuessInput.style.borderColor = "red"
             // Set message
             funcMessage(`Game over, you lost. The correct number was ${winningNum}`, "red")
+
 
         } else {
             //  game continues - answer wrong
@@ -114,7 +120,7 @@ function playOne(e) {
 
     }
 
-    // playAgain()
+
 }
 
 
@@ -126,13 +132,13 @@ function funcMessage(msg, color) {
 }
 
 
-function playAgain() {
-    let userAns = confirm("Would you like to play again?");
+// function playAgain() {
+//     let userAns = confirm("Would you like to play again?");
 
-    if (userAns) {
-        playOne()
-    } else {
-        alert("Sad That you are leaving..Bye Bye!!");
-    }
+//     if (userAns) {
+//         playOne()
+//     } else {
+//         alert("Sad That you are leaving..Bye Bye!!");
+//     }
 
-}
+// }
