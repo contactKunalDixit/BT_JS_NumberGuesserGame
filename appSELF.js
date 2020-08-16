@@ -31,6 +31,17 @@ let uiGame = document.querySelector("#game"),
 uiMinNo.textContent = minNo;
 uiMaxNo.textContent = maxNo;
 
+
+// Play again Event listener
+uiGame.addEventListener("click", function (e) {
+    if (e.target.className === "play-again") {
+        window.location.reload()
+    }
+})
+// ALso, since the class 'play-again' is being added to the button which comes into existance at a certain later stage, we'll need event delegation concept and apply the event listener to the parent
+
+
+
 // Liten for event guess
 uiGuessBtn.addEventListener("click", playOne);
 
@@ -48,7 +59,7 @@ function getRandomWinningNumber() {
 
 
 
-function playOne(e) {
+function playOne() {
     let userGuess = parseInt(uiGuessInput.value)
     /* PraseInt parses the userInput into number from its original "String" state*/
     console.log(typeof (userGuess))
@@ -62,13 +73,7 @@ function playOne(e) {
     else if (userGuess === winningNum) {
 
         // Game Over --WON
-        // Disable input - Stops from entering a new Number
-        uiGuessInput.disabled = true;
-        // changeborder color
-        uiGuessInput.style.borderColor = "green"
-        // Set message
-        funcMessage(`Yay!!Congrats..You got it ..${winningNum} is correct!`, "green");
-
+        gameOver(true, `${winningNum} is correct, You Won`)
 
 
     } else {
@@ -79,12 +84,7 @@ function playOne(e) {
         if (guessesLeft === 0) {
             // game over - lost
             // Disable input
-            uiGuessInput.disabled = true;
-            // changeborder color
-            uiGuessInput.style.borderColor = "red"
-            // Set message
-            funcMessage(`Game over, you lost. The correct number was ${winningNum}`, "red")
-
+            gameOver(false, `Game over, you lost. The correct number was ${winningNum}`)
 
         } else {
             //  game continues - answer wrong
@@ -95,36 +95,33 @@ function playOne(e) {
             // clear Input
             uiGuessInput.value = "";
             // Tell user its a wrong msg
-            funcMessage(`${userGuess} is not correct, ${guessesLeft} guesses left`, "red")
+            funcMessage(`${userGuess} is not correct, ${guessesLeft} guesses left`)
         }
-        // }
-
-
-
-
-        // for (let i = 1; i < totalAttempts + 1; i++) {
-
-        //     if (userGuess !== winningNum) {
-
-        //         funcMessage(
-        //             `You are Wrong!You have ${totalAttempts-i}
-        //     attempts left`, "Red")
-        //     } else {
-        //         funcMessage(`Yay!!Congrats..You got it right in ${i}attempts!`, "green")
-        //     }
-
-
-
-
-
 
     }
 
 
 }
 
+// Game Over
+function gameOver(won, msg) {
 
-
+    let color;
+    won === true ? color = "green" : color =
+        "red";
+    // Disable input - Stops from entering a new Number
+    uiGuessInput.disabled = true;
+    // changeborder color
+    uiGuessInput.style.borderColor = color;
+    // Set text color
+    uiMessage.style.color = color;
+    // Set message
+    funcMessage(msg);
+    // Play Again
+    uiGuessBtn.value = 'Play Again'
+    //  we add a new class to add event listener to this new version of this button
+    uiGuessBtn.className += 'play-again'
+}
 
 function funcMessage(msg, color) {
     uiMessage.textContent = msg;
